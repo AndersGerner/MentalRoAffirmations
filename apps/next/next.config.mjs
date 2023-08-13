@@ -1,5 +1,5 @@
-const { withExpo } = require('@expo/next-adapter')
-require('./src/env.mjs')
+import { withExpo } from '@expo/next-adapter'
+import './env.mjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,7 +8,7 @@ const nextConfig = {
     domains: ['avatars.githubusercontent.com'],
   },
   experimental: {
-    serverActions: true,
+    appDir: true,
     serverComponentsExternalPackages: ['@prisma/client'],
   },
   typescript: {
@@ -29,4 +29,4 @@ const nextConfig = {
   ],
 }
 
-module.exports = withExpo(nextConfig)
+export default withExpo(nextConfig)
