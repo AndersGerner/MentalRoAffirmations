@@ -1,7 +1,7 @@
 import sendEmail from '@/app/utils/sendEmail'
 import {
   TIER_CATEGORIES_FEATURE_ID,
-  TIER_PERSONAL_UNLIMITED,
+  TIER_PERSONAL_UNLIMITED_PLAN_ID,
 } from '@/config/tierConstants'
 import { env } from '@/env.mjs'
 import { db } from '@/src/lib/db'
@@ -32,7 +32,6 @@ export const authOptions: NextAuthOptions = {
         identifier: email,
         url,
         token,
-        baseUrl,
         provider,
       }) => {
         // Generate a 5-digit code
@@ -41,7 +40,7 @@ export const authOptions: NextAuthOptions = {
         // Store the code in your database or cache with a short expiration time
 
         // Send the code via email
-        const site = baseUrl.replace(/^https?:\/\//, '')
+        const site = 'MentalRo.NU'
         await sendEmail({
           to: email,
           subject: `Your verification code for ${site}`,
@@ -69,7 +68,7 @@ export const authOptions: NextAuthOptions = {
           // Add OrgInfo to create/update the customer profile while subscribing
           await tier.subscribe(
             `org:${session?.user?.id}`,
-            TIER_PERSONAL_UNLIMITED,
+            TIER_PERSONAL_UNLIMITED_PLAN_ID,
             {
               info: {
                 name: session?.user?.name as string,
